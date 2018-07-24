@@ -39,9 +39,9 @@ num.forEach(numb =>
       displayValue = currentValue;
       display.innerHTML = displayValue;
     } else {
-      displayValueArray = Array.of(displayValue);
-      displayValueArray.push(currentValue);
-      console.log(displayValueArray);
+      currentValue += this.innerHTML;
+      displayValue = currentValue;
+      display.innerHTML = displayValue;
     }
   })
 );
