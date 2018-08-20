@@ -1,8 +1,8 @@
 Solution to the <a href="https://www.theodinproject.com/lessons/calculator">Odin Project "Calculator" </a> exercise;
 
-<a href="https://berbua.github.io/Calc/">View in browser</a>
+<a href="https://berbua.github.io/Calculator/">View in browser</a>
 
-Features:
+## Features:
 
 <ul>
 <li>Functions included to process basic math operations</li>
@@ -23,8 +23,14 @@ Features:
 <li>multiple points blocked from being added to the same number</li>
 </ul>
 
-Still to be developed:
+## Still to be developed:
 
 <li>long decimals rounding to fit the screen</li>
 <li>add a backspace button</li>
 <li>add keyboard support</li>
+
+## Technologies used:
+
+- HTML5,
+- CSS3,
+- JavaScript.
