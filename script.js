@@ -1,6 +1,5 @@
 const buttons = document.querySelectorAll("button");
 const off = document.getElementById("off");
-console.log(buttons);
 let calcul = [];
 let input1 = [];
 let input2 = [];
@@ -130,7 +129,6 @@ buttons.forEach(button => {
       if (calcul.length < 2) {
         calcul.push(operatorChoice);
       } else if (calcul.length > 1 && checkEgal) {
-        console.log(calcul.pop());
         calcul.pop();
         calcul.push(operatorChoice);
       } else {
@@ -138,7 +136,6 @@ buttons.forEach(button => {
         checkEgal = true;
       }
       displayCalcul(calcul);
-      console.log(calcul);
     } else if (button.classList.contains("operator") && input2.length > 0) {
       //total calculation
       let total = operate(operatorChoice, input1, input2);
@@ -169,6 +166,5 @@ buttons.forEach(button => {
     } else if (button.id === "clear") {
       clear();
     }
-    console.log(input1, input2, operatorChoice);
   });
 });
