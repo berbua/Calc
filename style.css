@@ -44,13 +44,15 @@ body {
 
 h2 {
   margin: 0;
-  margin: 0.5em 5px 0 auto;
+  margin: 0.5em 0 0 auto;
   font-size: 1em;
   background-color: darkgray;
+  text-align: right;
 }
 
 h1 {
   font-size: 2.2em;
+  margin-bottom: 0;
 }
 
 .buttons {
