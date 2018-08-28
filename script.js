@@ -1,13 +1,17 @@
+//global variables
+
 const buttons = document.querySelectorAll("button");
 const off = document.getElementById("off");
 let calcul = [];
 let input1 = [];
 let input2 = [];
 let operatorChoice = "";
+//check if this is a first input
 let check = true;
+//
 let checkEgal = true;
 
-//functions
+//global functions
 
 function add(a, b) {
   return a + b;
@@ -85,11 +89,18 @@ let noDot = function(element) {
   return element === ".";
 };
 
+function calculUpdate(input) {
+  calcul.push(input.join(""));
+  calcul.unshift("(");
+  calcul.push(")");
+  calcul.push(operatorChoice);
+  displayCalcul(calcul);
+}
 //Clikable buttons
 
 buttons.forEach(button => {
   button.addEventListener("click", event => {
-    //inputs allocation
+    //input1
     if (check && (button.classList.contains("num") && operatorChoice === "")) {
       input1.push(button.id);
       displayResult(input1.join(""));
@@ -120,12 +131,12 @@ buttons.forEach(button => {
         input1.unshift("-");
       }
       displayResult(input1.join(""));
+      //Operations
     } else if (button.classList.contains("operator") && input2.length === 0) {
       operatorChoice = button.id;
       if (checkEgal) {
         calcul.push(input1.join(""));
       }
-
       if (calcul.length < 2) {
         calcul.push(operatorChoice);
       } else if (calcul.length > 1 && checkEgal) {
@@ -137,25 +148,17 @@ buttons.forEach(button => {
       }
       displayCalcul(calcul);
     } else if (button.classList.contains("operator") && input2.length > 0) {
-      //total calculation
       let total = operate(operatorChoice, input1, input2);
       displayResult(total);
       operatorChoice = button.id;
-
-      calcul.push(input2.join(""));
-      calcul.unshift("(");
-      calcul.push(")");
-      calcul.push(operatorChoice);
-      displayCalcul(calcul);
-
+      //calculation update
+      calculUpdate(input2);
       input1 = total.toString().split("");
       input2 = [];
       check = false;
+      //Equals
     } else if (button.id === "equals") {
-      calcul.push(input2.join(""));
-      calcul.unshift("(");
-      calcul.push(")");
-      displayCalcul(calcul);
+      calculUpdate(input2);
       let total = operate(operatorChoice, input1, input2);
       operatorChoice = "";
       displayResult(total);
@@ -167,4 +170,65 @@ buttons.forEach(button => {
       clear();
     }
   });
+});
+
+// Keyboard support
+
+document.addEventListener("keydown", function(event) {
+  if (event.repeat) return;
+  switch (event.key) {
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+      if (check) {
+        input1.push(Number(event.key));
+        displayResult(input1.join(""));
+      } else {
+        input2.push(Number(event.key));
+        displayResult(input2.join(""));
+      }
+      break;
+    case ".":
+    case ",":
+      if (check) {
+        input1.push(".");
+        displayResult(input1.join(""));
+      } else {
+        input2.push(".");
+        displayResult(input2.join(""));
+      }
+      break;
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+      console.log(event.key);
+      let total = operate(event.key, input1, input2);
+      displayResult(total);
+      operatorChoice = event.key;
+      calculUpdate(input1);
+      break;
+    case "=":
+    case "Enter":
+      calculUpdate(input2);
+      total = operate(operatorChoice, input1, input2);
+      operatorChoice = "";
+      displayResult(total);
+      input1 = total.toString().split("");
+      input2 = [];
+      check = false;
+      checkEgal = false;
+      break;
+    case "Delete":
+    case "Backspace":
+      clear();
+      break;
+  }
 });
